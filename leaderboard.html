@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png">
+  <link rel="manifest" href="./favicon/site.webmanifest">
+  <meta property="og:title" content="The Guessing Leaderboard" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://mrbeast-confirmed-stats.vercel.app/" />
+  <meta property="og:locale" content="en" />
+  <meta property="og:description" content="View People Ranked Guesses about MrBeast daily subcount reports by ViewStats." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="View People Ranked Guesses about MrBeast daily subcount reports by ViewStats." />
+  <meta name="twitter:description" content="View People Ranked Guesses about MrBeast daily subcount reports by ViewStats." />
+  <meta name="description" content="View People Ranked Guesses about MrBeast daily subcount reports by ViewStats." />
+  <meta name="theme-color" content="#eaba00" />
+  <link
+  rel="stylesheet"
+  href="https://mrbeast-confirmed-stats.vercel.app/odometer-theme-minimal.css"
+  />
+  <script src="https://mrbeast-confirmed-stats.vercel.app/odometer.js"></script>
+  <style>
+@import url("https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Readex+Pro:wght@200;300;400;500;600;700&family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Yantramanav:wght@100;300;400;500;700;900&display=swap");
+
+@import url("https://fonts.cdnfonts.com/css/obelixpro-6");
+
+    * {
+      margin: 0;
+      padding: 0;
+      white-space: nowrap;
+      text-size-adjust: none;
+    }
+
+@keyframes AnimationName {
+      0% {
+        background-position: 0% 0%;
+      }
+
+      50% {
+        background-position: 0% 100%;
+      }
+
+      100% {
+        background-position: 0% 0%;
+      }
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      background: linear-gradient(180deg, #312d00 0%, #4e3e00 100%);
+      background-size: 500% 500%;
+      color: white;
+      animation: AnimationName 20s ease-in-out infinite;
+    }
+
+    .title {
+      font-family: "ObelixPro", sans-serif;
+      font-size: 80px;
+      background: -webkit-linear-gradient(#f9ff00, #ffca00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      white-space: wrap;
+    }
+    
+    .homeButton {
+      background: linear-gradient(to bottom right, #00deed, #0063ed);
+      border: 0;
+      border-radius: 12px;
+      color: white;
+      cursor: pointer;
+      display: inline-block;
+      font-family: "Ubuntu";
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 2.5;
+      outline: transparent;
+      padding: 0 1rem;
+      text-decoration: none;
+      transition: box-shadow .2s ease-in-out;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      white-space: nowrap;
+      margin-left: 2.5%;
+      margin-bottom: 10px;
+      margin-top: 5px;
+    }
+    
+    .homeButton:not([disabled]):focus {
+      box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem cyan, .125rem .125rem 1rem blue;
+    }
+
+    .homeButton:not([disabled]):hover {
+      box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem cyan, .125rem .125rem 1rem blue;
+    }
+
+    .leaderboard-box {
+      background-color: #333333;
+      width: 95%;
+      border-radius: 10px 10px 0px 0px;
+      margin-left: 2.5%;
+      padding-bottom: 10px;
+      margin-top: 25px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header-text {
+      font-family: "Ubuntu";
+      font-weight: 500;
+      font-size: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 15px;
+    }
+
+    .user-details {
+      left: 7.5px;
+    }
+
+    .loading-text {
+      font-family: "Ubuntu";
+      font-weight: 500;
+      font-size: 150px;
+      text-align: center;
+      display: block;
+    }
+
+    .user-box {
+      font-family: "Ubuntu";
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      transition: 150ms;
+    }
+
+    .user-box:nth-child(odd) {
+      background-color: #333333;
+    }
+
+    .user-box:nth-child(even) {
+      background-color: #3F3F3F;
+    }
+
+    .user-box:hover {
+      background-color: #005d67;
+    }
+
+    .user-info-all {
+      display: flex;
+      flex-direction: column;
+      align-self: center;
+      gap: 5px;
+      width: 100%;
+      margin-left: 10px;
+    }
+
+    .user-info {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .user-names {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .user-rank {
+      font-weight: 700;
+      font-size: 30px;
+      color: white;
+    }
+
+    .user-avatar {
+      width: 65px;
+      height: 65px;
+    }
+
+    .user-names {
+      font-weight: 500;
+      font-size: 25px;
+    }
+
+    .user-username {
+      font-weight: 700;
+      color: gray;
+    }
+
+    .user-guessServerLogo {
+      width: 17.5px;
+      height: 17.5px;
+      border-radius: 50%;
+    }
+
+    .user-guessat-text {
+      display: flex;
+      gap: 5px;
+      font-size: 17.5px;
+      align-items: center;
+    }
+
+    .user-guessat {
+      font-weight: 700;
+      color: yellow;
+    }
+
+    .user-guessSubs,
+    .user-guessSubsAway {
+      font-family: "Roboto";
+      font-size: 85px;
+      font-weight: 700;
+      width: 100%;
+    }
+
+    .user-guessSubs {
+      color: #96fbff;
+      text-align: center;
+    }
+
+    .user-guessSubsAway {
+      color: #faff96;
+      margin-right: 15px;
+      text-align: right;
+    }
+
+    .user-guessSubsAwayText {
+      font-size: 25px;
+      font-weight: 700;
+      text-align: right;
+    }
+
+    .selectors {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+    }
+
+    input,
+    select {
+      background-color: transparent;
+      color: #cccccc;
+      font-family: "Ubuntu";
+      font-weight: 700;
+      border: none;
+      padding: 5px;
+      font-size: 27.5px;
+    }
+
+    label {
+      color: white;
+      font-family: "Ubuntu";
+      font-weight: 500;
+      font-size: 27.5px;
+    }
+
+    #customDate {
+      width: 190px;
+    }
+
+    #fromUser {
+      width: 150px;
+    }
+
+    #inChannel {
+      width: 400px;
+    }
+    
+    #search {
+      width: 300px;
+    }
+
+    .info-text {
+      font-family: "Ubuntu";
+      font-weight: 400;
+      font-size: 22px;
+      font-style: italic;
+      color: orange;
+      text-align: center;
+      margin-top: 10px;
+      opacity: 20%;
+    }
+
+    .lastupdate-text {
+      font-family: "Ubuntu";
+      font-weight: 600;
+      font-size: 22px;
+      color: #ffc18d;
+      margin-top: 25px;
+      margin-bottom: -10px;
+      margin-left: 2.5%;
+    }
+    
+    .total-guesses {
+      font-family: "Ubuntu";
+      font-weight: 600;
+      font-size: 22px;
+      color: orange;
+      margin-top: 25px;
+      margin-bottom: -10px;
+      margin-left: 2.5%;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .user-message-background {
+      width: 100%;
+      height: 100%;
+      background-color: black;
+      position: fixed;
+      top: 0;
+      opacity: 50%;
+      z-index: 1;
+    }
+
+    .user-message-main {
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      font-family: "Ubuntu";
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .user-message-box {
+      background-color: #3f3f3f;
+      width: 1100px;
+      min-height: 190px;
+      padding-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .user-message-box:hover {
+      background-color: #4c4c4c;
+    }
+
+    .user-message-box-header {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user-message-box-avatar {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      margin-right: 5px;
+    }
+
+    .user-message-box-names {
+      display: flex;
+      gap: 5px;
+      font-size: 35px;
+      font-weight: 500;
+    }
+
+    .user-message-box-head {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .user-message-box-username {
+      font-weight: 700;
+      color: gray;
+    }
+
+    .user-message-box-content {
+      font-size: 40px;
+      white-space: wrap;
+    }
+
+    .user-message-server {
+      display: flex;
+      gap: 5px;
+    }
+
+    .user-message-server-logo {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+    }
+
+    .user-message-server-channel-name {
+      font-size: 30px;
+    }
+
+    .user-message-timestamp {
+      font-weight: 700;
+      font-size: 30px;
+      color: orange;
+    }
+
+    .user-message-box-details {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+    }
+
+@keyframes fadeIn {
+      from {
+        opacity: 0%;
+      }
+      to {
+        opacity: 50%;
+      }
+    }
+
+@keyframes fadeOut {
+      from {
+        opacity: 50%;
+      }
+      to {
+        opacity: 0%;
+      }
+    }
+    
+@keyframes zoomIn {
+  from {
+    transform: scale(0) translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+  }
+  to {
+    transform: scale(1) translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+  }
+}
+
+@keyframes zoomOut {
+  from {
+    transform: scale(1) translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+  }
+  to {
+    transform: scale(0) translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+  }
+}
+
+    .fadeIn {
+      animation: fadeIn 200ms forwards;
+    }
+
+    .fadeOut {
+      animation: fadeOut 200ms forwards;
+    }
+    
+    .zoomIn {
+      animation: zoomIn 200ms forwards;
+    }
+    
+    .zoomOut {
+      animation: zoomOut 200ms forwards;
+    }
+
+@media screen and (max-width: 1000px) {
+      .loading-text {
+        font-size: 100px;
+      }
+      .header-text {
+        font-size: 20px;
+      }
+      .user-rank {
+        font-size: 25px;
+      }
+      .user-names {
+        font-size: 17px;
+        width: 50px;
+      }
+      .user-avatar {
+        width: 50px;
+        height: 50px;
+      }
+      .userGuessServerLogo {
+        width: 13px;
+        height: 13px;
+      }
+      .user-guessat-text {
+        font-size: 13px;
+      }
+      .user-guessSubs, .user-guessSubsAway {
+        font-size: 62px;
+      }
+      .user-message-box {
+        width: 975px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="homeButton" role="button" href="/">Back</a>
+  <p class="title">
+    THE GUESSING LEADERBOARD
+  </p>
+  <div class="selectors">
+    <label>DATE: </label>
+    <select
+      name="datesOption"
+      id="datesOption"
+      onchange="setData();"
+      >
+      <option value="custom">Custom</option>
+      <option value="alltime">All Time</option>
+    </select>
+    <input
+    type="date"
+    name="customDate"
+    id="customDate"
+    onchange="setData();"
+    />
+    <label>FROM: </label>
+    <input
+    type="input"
+    name="fromUser"
+    id="fromUser"
+    placeholder="All Users"
+    onchange="setData();"
+    />
+    <label>SORT BY: </label>
+    <select name="sortBy" id="sortBy" onchange="setData();">
+      <option value="closest">Closest</option>
+      <option value="furthest">Furthest</option>
+      <option value="earliest">Earliest</option>
+      <option value="recently">Recently</option>
+      <option value="nameAZ">Name (A - Z)</option>
+      <option value="nameZA">Name (Z - A)</option>
+    </select>
+  </div>
+  <div style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+    <label>IN: </label>
+    <select
+      name="inChannel"
+      id="inChannel"
+      onchange="setData();"
+      >
+      <option value="allchannels">All Channels</option>
+      <option value="1175914190028943360">ViewStats #general-discussion</option>
+      <option value="1202617059511369808">ViewStats #mrbeast-subcount-discussion</option>
+      <option value="1189250824573030470">MrBeast Statistics #mb-prediction</option>
+    </select>
+    <label>SEARCH: </label>
+    <input
+    type="input"
+    name="search"
+    id="search"
+    placeholder="Search any message..."
+    onchange="setData();"
+    />
+  </div>
+  <div style="display: flex; justify-content: center; align-items: center;">
+    <label>FILTER: </label>
+    <select
+      name="filter"
+      id="filter"
+      onchange="setData();"
+      >
+      <option value="none">None</option>
+      <option value="userbestguess">User's Best Guess</option>
+      <option value="userworstguess">User's Worst Guess</option>
+      <input type="checkbox" id="rankCheck" name="rankCheck" checked="true" onchange="setData();"/>
+      <label for="rankCheck" style="margin-left: 5px;">Overall Position</label>
+    </select>
+  </div>
+  
+  <p class="info-text">
+    Data collected from ViewStats and MrBeast Statistics Servers, time is in UTC+0
+  </p>
+  <p class="lastupdate-text">
+    DATA LAST UPDATED: Loading...
+  </p>
+  <p class="total-guesses">
+    TOTAL GUESSES: Loading...
+  </p>
+  <div class="leaderboard-box">
+    <div class="header-text">
+      <p>
+        User Details
+      </p>
+      <p style="margin-left: 65px">
+        Guessed Subscriber Count
+      </p>
+      <p>
+        Subscribers Away
+      </p>
+    </div>
+    <h1 class="loading-text">Loading...</h1>
+    <div class="boxes"></div>
+  </div>
+</body>
+<script>
+  /*
+  document.getElementById('testDiv').addEventListener("click", () => {
+     document.getElementById('testDiv').classList.add("fadeOut");
+    setTimeout(() => {
+      document.getElementById('testDiv').remove();
+    }, 240);
+    });
+    */
+
+
+  const setNewDigits = (count, newCount, digits) => {
+    digits = digits ?? 3;
+    let replacedCount = count.toString().split("");
+    newCount = newCount.toString().split("");
+    for (let i = 0; i < digits; i++) {
+      replacedCount[i] = newCount[i];
+    }
+    return parseInt(replacedCount.join(""));
+  }
+  
+  function createUserPopUp(userData) {
+    let avatar = userData.author.avatar != null ? `https://cdn.discordapp.com/avatars/${userData.author.id}/${userData.author.avatar}.png?size=4096/`: 'https://cdn.discordapp.com/attachments/960555034360299590/1229066200240357477/unnamed_18.jpg?ex=662e5419&is=661bdf19&hm=52e0e5d83f61781a6f74309afab56661d5ae06c90a8f613768cd30209345c3d7&';
+    let displayName = userData.author.global_name;
+    let username = userData.author.username ?? "unknown";
+    let serverLogos = userData.server_logo;
+    let channelNames = userData.channelNames;
+    let channelIds = userData.channelIds;
+    let msgIds = userData.msgIds;
+    let guessesAt = userData.timestamps;
+    let msgContents = userData.contents;
+    let guildIds = userData.guildIds;
+    
+    var userMessagePopup = document.createElement('div');
+    userMessagePopup.className = 'user-message-popup';
+    
+    var userMessageBackground = document.createElement('div');
+    userMessageBackground.className = 'user-message-background fadeIn';
+    var userMessageMain = document.createElement('div');
+    userMessageMain.className = 'user-message-main zoomIn';
+    
+    userMessageBackground.addEventListener("click", () => {
+      userMessageBackground.classList.add("fadeOut");
+      userMessageMain.classList.add("zoomOut");
+       setTimeout(() => {
+        userMessagePopup.remove();
+      }, 190);
+    });
+    
+  for (let i = 0; i < channelNames.length; i++) {
+    var userMessageBox = document.createElement('div');
+    userMessageBox.className = 'user-message-box';
+    userMessageBox.addEventListener("click", () => {
+      window.open('https://discord.com/channels/'+guildIds[i]+'/'+channelIds[i]+'/'+msgIds[i]);
+    });
+
+    var userMessageBoxDetails = document.createElement('div');
+    userMessageBoxDetails.className = 'user-message-box-details';
+
+    var userMessageServer = document.createElement('div');
+    userMessageServer.className = 'user-message-server';
+
+    var userMessageServerLogo = document.createElement('img');
+    userMessageServerLogo.className = 'user-message-server-logo';
+    userMessageServerLogo.src = serverLogos[i];
+
+    var userMessageServerChannelName = document.createElement('p');
+    userMessageServerChannelName.className = 'user-message-server-channel-name';
+    userMessageServerChannelName.textContent = '#'+channelNames[i];
+
+    userMessageServer.appendChild(userMessageServerLogo);
+    userMessageServer.appendChild(userMessageServerChannelName);
+
+    var userMessageTimestamp = document.createElement('p');
+    userMessageTimestamp.className = 'user-message-timestamp';
+    userMessageTimestamp.textContent = guessesAt[i].split(".")[0].replace("T", " ");
+
+    userMessageBoxDetails.appendChild(userMessageServer);
+    userMessageBoxDetails.appendChild(userMessageTimestamp);
+
+    var userMessageBoxHeader = document.createElement('div');
+    userMessageBoxHeader.className = 'user-message-box-header';
+
+    var userMessageBoxAvatar = document.createElement('img');
+    userMessageBoxAvatar.className = 'user-message-box-avatar';
+    userMessageBoxAvatar.src = avatar;
+
+    var userMessageBoxHead = document.createElement('div');
+    userMessageBoxHead.className = 'user-message-box-head';
+
+    var userMessageBoxNames = document.createElement('div');
+    userMessageBoxNames.className = 'user-message-box-names';
+
+    var userMessageBoxName = document.createElement('p');
+    userMessageBoxName.className = 'user-message-box-name';
+    userMessageBoxName.textContent = displayName;
+
+    var userMessageBoxUsername = document.createElement('p');
+    userMessageBoxUsername.className = 'user-message-box-username';
+    userMessageBoxUsername.textContent = '@'+username;
+
+    userMessageBoxNames.appendChild(userMessageBoxName);
+    userMessageBoxNames.appendChild(userMessageBoxUsername);
+
+    var userMessageBoxContent = document.createElement('p');
+    userMessageBoxContent.className = 'user-message-box-content';
+    userMessageBoxContent.textContent = msgContents[i];
+
+    userMessageBoxHead.appendChild(userMessageBoxNames);
+    userMessageBoxHead.appendChild(userMessageBoxContent);
+
+    userMessageBoxHeader.appendChild(userMessageBoxAvatar);
+    userMessageBoxHeader.appendChild(userMessageBoxHead);
+
+    userMessageBox.appendChild(userMessageBoxDetails);
+    userMessageBox.appendChild(userMessageBoxHeader);
+
+    userMessageMain.appendChild(userMessageBox);
+  }
+
+    userMessagePopup.appendChild(userMessageBackground);
+    userMessagePopup.appendChild(userMessageMain);
+
+    document.body.appendChild(userMessagePopup);
+  }
+
+  function createUserBox(userData) {
+    let rank = userData.rank;
+    let rankColor = userData.rankColor;
+    let avatar = userData.author.avatar != null ? `https://cdn.discordapp.com/avatars/${userData.author.id}/${userData.author.avatar}.png?size=4096/`: 'https://cdn.discordapp.com/attachments/960555034360299590/1229066200240357477/unnamed_18.jpg?ex=662e5419&is=661bdf19&hm=52e0e5d83f61781a6f74309afab56661d5ae06c90a8f613768cd30209345c3d7&';
+    let displayName = userData.author.global_name;
+    let username = userData.author.username ?? "unknown";
+    let servers = userData.server_logo;
+    let guessAt = userData.timestamp.split(".")[0].replace("T", " ");
+    let guessSubCount = userData.guessSubCount;
+    let gap = userData.gap;
+    let sign = Math.sign(userData.subCountUpdate - userData.guessSubCount);
+    let signText = sign >= 0 ? "+": "-";
+    let signColor = sign >= 0 ? "lime": "red";
+
+    // Create the main container element
+    var userBox = document.createElement('div');
+    userBox.className = 'user-box';
+    userBox.id = 'user-message-'+userData.id+'-box';
+    userBox.addEventListener("click", () => {
+      createUserPopUp(userData);
+    });
+
+    // Create the user-info-all container
+    var userInfoAll = document.createElement('div');
+    userInfoAll.className = 'user-info-all';
+
+    // Create the user-info container
+    var userInfo = document.createElement('div');
+    userInfo.className = 'user-info';
+
+    // Create the user-rank paragraph
+    var userRank = document.createElement('p');
+    userRank.className = 'user-rank';
+    userRank.textContent = '#' + rank;
+    userRank.style.color = rankColor;
+
+    // Create the user-avatar image
+    var userAvatar = document.createElement('img');
+    userAvatar.className = 'user-avatar';
+    userAvatar.src = avatar;
+
+    // Create the user-names container
+    var userNames = document.createElement('div');
+    userNames.className = 'user-names';
+
+    // Create the user-displayname paragraph
+    var userDisplayName = document.createElement('p');
+    userDisplayName.className = 'user-displayname';
+    userDisplayName.textContent = displayName;
+
+    // Create the user-username paragraph
+    var userUsername = document.createElement('p');
+    userUsername.className = 'user-username';
+    userUsername.textContent = "@" + username;
+
+    // Append userDisplayName and userUsername to userNames
+    userNames.append(userDisplayName, userUsername);
+
+    // Append userRank, userAvatar, and userNames to userInfo
+    userInfo.append(userRank, userAvatar, userNames);
+
+    var serversLogos = [];
+
+    for (let i = 0; i < servers.length; i++) {
+      serversLogos[i] = document.createElement('img');
+      serversLogos[i].className = 'user-guessServerLogo';
+      serversLogos[i].src = servers[i];
+    }
+
+
+    // Create the user-guessat-text container
+    var userGuessAtText = document.createElement('div');
+    userGuessAtText.className = 'user-guessat-text';
+
+    // Create the guessed at paragraph
+    var guessedAtText = document.createElement('p');
+    guessedAtText.textContent = 'guessed at';
+
+    // Create the user-guessat paragraph
+    var userGuessAt = document.createElement('p');
+    userGuessAt.className = 'user-guessat';
+    userGuessAt.textContent = guessAt;
+
+    // Append guessedAtText and userGuessAt to userGuessAtText
+    userGuessAtText.append(...serversLogos, guessedAtText, userGuessAt);
+
+    // Append userGuessAtText to userInfoAll
+    userInfoAll.append(userInfo, userGuessAtText);
+
+    // Append userInfoAll to userBox
+    userBox.appendChild(userInfoAll);
+
+    // Create the user-guessSubs paragraph
+    var userGuessSubs = document.createElement('p');
+    userGuessSubs.className = 'user-guessSubs';
+    userGuessSubs.textContent = guessSubCount.toLocaleString('en-US');
+
+    var userGuessSubsAwayText = document.createElement('p');
+    userGuessSubsAwayText.className = 'user-guessSubsAwayText';
+    userGuessSubsAwayText.textContent = "(" + signText + ")";
+    userGuessSubsAwayText.style.color = signColor;
+
+    // Create the user-guessSubsAway paragraph
+    var userGuessSubsAway = document.createElement('p');
+    userGuessSubsAway.className = 'user-guessSubsAway';
+    userGuessSubsAway.textContent = gap.toLocaleString('en-US');
+
+    // Append userGuessSubs and userGuessSubsAway to userBox
+
+    userBox.append(userGuessSubs, userGuessSubsAway, userGuessSubsAwayText);
+
+    // Append userBox to the document body or any other desired parent element
+
+    document.querySelector(".boxes").appendChild(userBox);
+  }
+
+  const getServerLogo = (cid) => {
+    const logos = {
+      "1175914190028943360": "./viewstats.png",
+      "1202617059511369808": "./viewstats.png",
+      "1189250824573030470": "./mbstats.png",
+    };
+
+    return logos[cid];
+  }
+  
+  const getChannelName = (cid) => {
+    const names = {
+      "1175914190028943360": "general-discussion",
+      "1202617059511369808": "mrbeast-subcount-discussion",
+      "1189250824573030470": "mb-predictions",
+    };
+    
+    return names[cid];
+  }
+  
+  const getChannelGuild = (cid) => {
+    const ids = {
+      "1175914190028943360": "1171577354712252438",
+      "1202617059511369808": "1171577354712252438",
+      "1189250824573030470": "1175557946474766416",
+    };
+    
+    return ids[cid];
+  }
+  
+  
+  
+  
+  
+
+  var mbsubcounts = {};
+  var guessesData = {};
+
+  function setData() {
+    document.querySelector(".boxes").innerHTML = "";
+    document.querySelector(".loading-text").textContent = "Loading...";
+    document.querySelector(".loading-text").style.display = "block";
+    var datesOptionSelector = document.getElementById('datesOption');
+    var customDateSelector = document.getElementById('customDate');
+    var fromUserInput = document.getElementById('fromUser');
+    var sortBySelector = document.getElementById('sortBy');
+    var inChannelSelector = document.getElementById('inChannel');
+    var searchInput = document.getElementById('search');
+    var filterSelector = document.getElementById('filter');
+    var rankCheckBox = document.getElementById('rankCheck');
+    const isCustomDates = datesOptionSelector.value === "custom";
+    document.getElementById("customDate").classList.toggle("hidden", !isCustomDates);
+
+    if (customDateSelector.value === "") {
+      customDateSelector.min = mbsubcounts.map(d => d[0]).sort((a, b) => new Date(a).getTime() - new Date(b).getTime())[0].split("T")[0];
+      customDateSelector.max = mbsubcounts.map(d => d[0]).sort((a, b) => new Date(b).getTime() - new Date(a).getTime())[0].split("T")[0];
+      customDateSelector.value = mbsubcounts.map(d => d[0]).sort((a, b) => new Date(b).getTime() - new Date(a).getTime())[0].split("T")[0];
+    }
+
+    let matchData = mbsubcounts.map(d => guessesData.filter(dd => dd.timestamp.split("T")[0] === d[0].split("T")[0]));
+    let sortData = guessesData.map(d => {
+      d.author.global_name = d.author.username === "Deleted User" ? "Deleted User": d.author.global_name ?? d.author.username;
+      let server_logo = getServerLogo(d.channel_id);
+      let timeUpdate = mbsubcounts.find(dd => dd[0].split("T")[0] === d.timestamp.split("T")[0])[0];
+      let sortDateTimestamp = (new Date(d.timestamp).getTime() - new Date(timeUpdate).getTime()) >= 600000 ? mbsubcounts[(mbsubcounts.findIndex(dd => dd[0].split("T")[0] === d.timestamp.split("T")[0]))+1][0] : d.timestamp;
+      let subCountUpdate = parseInt(mbsubcounts.find(dd => dd[0].split("T")[0] === sortDateTimestamp.split("T")[0])[1]);
+      timeUpdate = mbsubcounts.find(dd => dd[0].split("T")[0] === sortDateTimestamp.split("T")[0])[0];
+    //  subCountUpdate = ((mbsubcounts.findIndex(dd => dd[0].split("T")[0] === sortDateTimestamp.split("T")[0]))+1) >= mbsubcounts.length ? subCountUpdate : Math.abs(subCountUpdate - d.guessSubCount) > Math.abs(parseInt(mbsubcounts[(mbsubcounts.findIndex(dd => dd[0].split("T")[0] === sortDateTimestamp.split("T")[0]))+1][1]) - d.guessSubCount) ? parseInt(mbsubcounts[(mbsubcounts.findIndex(dd => dd[0].split("T")[0] === sortDateTimestamp.split("T")[0]))+1][1]) : subCountUpdate;
+      d.guessSubCount = Math.abs(subCountUpdate - d.guessSubCount) > Math.abs(subCountUpdate - setNewDigits(d.guessSubCount, subCountUpdate)) ? setNewDigits(d.guessSubCount, subCountUpdate): d.guessSubCount;
+      d.guessSubCount = Math.abs(subCountUpdate - d.guessSubCount) > Math.abs(subCountUpdate - (d.guessSubCount+1_000_000)) ? d.guessSubCount + 1_000_000 : d.guessSubCount;
+      timeUpdate = mbsubcounts.find(dd => parseInt(dd[1]) == subCountUpdate)[0];
+      let gap = Math.abs(subCountUpdate - d.guessSubCount);
+      let timestamps = d.timestamp;
+      let channelIds = d.channel_id;
+      let msgIds = d.id;
+      let contents = d.content;
+      let guildId = getChannelGuild(d.channel_id);
+      let guildIds = guildId;
+
+      return {
+        ...d, channelIds, guildId, guildIds, server_logo, msgIds, contents, timestamps, subCountUpdate, timeUpdate, gap
+      };
+    });
+
+    var seen = {};
+
+    sortData = sortData.sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime())
+    .filter((entry) => {
+      var previous;
+
+      // Have we seen this label before?
+      if (seen.hasOwnProperty(entry.guessSubCount)) {
+        // Yes, grab it and add this data to it
+        previous = seen[entry.guessSubCount];
+        previous.server_logo.push(entry.server_logo);
+        previous.contents.push(entry.contents);
+        previous.timestamps.push(entry.timestamps);
+        previous.channelIds.push(entry.channelIds);
+        previous.msgIds.push(entry.msgIds);
+        previous.guildIds.push(entry.guildIds);
+
+        // Don't keep this entry, we've merged it into the previous one
+        return false;
+      }
+
+      // entry.data probably isn't an array; make it one for consistency
+      if (!Array.isArray(entry.server_logo)) {
+        entry.server_logo = [entry.server_logo];
+      }
+      if (!Array.isArray(entry.timestamp)) {
+        entry.timestamps = [entry.timestamps];
+      }
+      if (!Array.isArray(entry.channelIds)) {
+        entry.channelIds = [entry.channelIds];
+      }
+      if (!Array.isArray(entry.contents)) {
+        entry.contents = [entry.contents];
+      }
+      if (!Array.isArray(entry.msgIds)) {
+        entry.msgIds = [entry.msgIds];
+      }
+      if (!Array.isArray(entry.guildIds)) {
+        entry.guildIds = [entry.guildIds];
+      }
+
+      // Remember that we've seen it
+      seen[entry.guessSubCount] = entry;
+
+      // Keep this one, we'll merge any others that match into it
+      return true;
+    }).map(d => {
+      let channelNames = d.channelIds.map(cid => getChannelName(cid));
+      return {
+        ...d,
+        channelNames
+      };
+    });
+
+    if (sortBySelector.value === "closest") {
+      sortData = sortData.sort((a, b) => a.gap - b.gap)
+    } else if (sortBySelector.value === "furthest") {
+      sortData = sortData.sort((a, b) => b.gap - a.gap)
+    } else if (sortBySelector.value === "earliest") {
+      sortData = sortData.sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime())
+    } else if (sortBySelector.value === "recently") {
+      sortData = sortData.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
+    } else if (sortBySelector.value === "nameAZ") {
+      sortData = sortData.sort((a, b) => a.author.global_name?.localeCompare(b.author.global_name));
+    } else if (sortBySelector.value === "nameZA") {
+      sortData = sortData.sort((a, b) => b.author.global_name?.localeCompare(a.author.global_name));
+    }
+    
+    
+    sortData = sortData.map((d, index) => {
+      return {
+        ...d,
+        rank: index+1
+      };
+    });
+    
+    
+    if (fromUserInput.value !== "") {
+      let inputValue = fromUserInput.value;
+      sortData = sortData.filter(d => d.author.global_name?.toLowerCase().includes(inputValue.toLowerCase()) || d.author.username?.toLowerCase().includes(inputValue.toLowerCase()) || d.author.id.includes(inputValue));
+    }
+    
+    if (searchInput.value !== "") {
+      console.log(sortData.map(d => d.contents.join(" ")))
+      sortData = sortData.filter(d => d.contents.map(c => c.toLowerCase()).join(" ").includes(searchInput.value.toLowerCase()));
+    }
+
+    if (datesOptionSelector.value === "custom") {
+      sortData = sortData.filter(d => d.timeUpdate.split("T")[0] === customDateSelector.value);
+    }
+
+    if (inChannelSelector.value !== "allchannels") {
+      sortData = sortData.filter(d => d.channelIds.includes(inChannelSelector.value));
+    }
+
+    
+    if (filterSelector.value === "userbestguess") {
+      sortData = sortData.sort((a, b) => a.gap - b.gap).filter((item, pos, self) => self.map(u => u.author.id).indexOf(item.author.id) == pos);
+    } else if (filterSelector.value === "userworstguess") {
+      sortData = sortData.sort((a, b) => b.gap - a.gap).filter((item, pos, self) => self.map(u => u.author.id).indexOf(item.author.id) == pos);
+    }
+    
+    if (rankCheckBox.checked == false) {
+      sortData = sortData.map((d, index) => {
+        d.rank = index + 1;
+        return d;
+      });
+    }
+    /*
+    sortData = sortData.map((d, index) => {
+      let channelNames = d.channelIds.map(cid => getChannelName(cid));
+      return {
+        ...d,
+        channelNames,
+        rank: index+1
+      };
+    });
+    */
+    
+    document.querySelector(".total-guesses").textContent = "TOTAL GUESSES: " + sortData.length;
+    
+    if (sortData.length == 0) {
+      document.querySelector(".loading-text").textContent = "Result not found."
+      document.querySelector(".loading-text").style.display = "block";
+      return;
+    }
+    
+    
+    for (let i = 0; i < sortData.length; i++) {
+      let rankColor = sortData[i].rank == 1 ? "gold" : sortData[i].rank == 2 ? "silver" : sortData[i].rank == 3 ? "#CD7F32" : "white";
+      createUserBox({
+        ...sortData[i], rankColor
+      });
+    }
+    
+    document.querySelector(".loading-text").style.display = "none";
+    //  console.log(sortData.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()));
+  }
+
+  Promise.all([
+    fetch("https://nia-statistics.com/mrbeastsubcount"),
+    fetch("./leaderboard/guessesData.json")
+  ])
+  .then((responses) => Promise.all(responses.map((res) => res.json())))
+  .then((data) => {
+    mbsubcounts = data[0];
+    guessesData = data[1].data;
+    guessesDataLastUpdated = data[1].last_updated;
+    document.querySelector(".lastupdate-text").textContent = "DATA LAST UPDATED: " + data[1].last_updated.split(".")[0].replace("T", " ") + " UTC+0";
+    setData();
+  });
+</script>
+</html>
