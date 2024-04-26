@@ -933,32 +933,17 @@
     await fetch("https://nia-statistics.com/mrbeastsubcount")
     .then((res) => res.json())
     .then(async (msgData) => {
-      await fetch("https://analytics.nia-statistics.com/raw/UCX6OQ3DkcsbYNE6H8uQQuVA")
+      await fetch("https://api.communitrics.com/UCX6OQ3DkcsbYNE6H8uQQuVA")
       .then((res) => res.json())
       .then(async (rawHistory) => {
         msgData = msgData.map(m => [m[0], m[1], undefined, "viewstats"]);
 
-        let history = rawHistory.data.map(d => {
-          return {
-            date: d.date,
-            count: parseInt(d.subscribers)
-          }
-        });
-
-        let counts = history.map(d => d.count);
-        counts = counts.filter((count, index) => counts.indexOf(count) === index).slice(80);
-
-        let historyData = counts.map(d => {
-          let date = history.filter(c => c.count == d).sort((a, b) => a.count - b.count)[0].date;
-          let count = d;
+        let historyData = rawHistory.data.map(d => {
+          let date = d.last_updated;
+          let count = d.previous_sub_count;
           return [date, count, undefined, "youtube"];
         });
-
-        historyData[historyData.findIndex(h => h[1] == 248000000)][0] = "2024-03-31T06:07:49.780Z";
-        historyData[historyData.findIndex(h => h[1] == 249000000)][0] = "2024-04-05T09:29:54.178Z";
-        historyData[historyData.findIndex(h => h[1] == 251000000)][0] = "2024-04-11T13:37:58.324Z";
-        // historyData[historyData.findIndex(h => h[1] == 252000000)][0] = "2024-04-11T13:37:58.324Z";
-
+        
         historyDataLocal = JSON.parse(historyDataLocal);
         historyDataLocal = historyDataLocal.map(h => [h[0], h[1], undefined, (h[3] ?? "youtube")]);
 
